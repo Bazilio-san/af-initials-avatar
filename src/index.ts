@@ -95,9 +95,9 @@ const text = (ctx: CanvasRenderingContext2D, initials: string, options: IDrawOpt
     const delta = needWidth - currentFontWidth;
     stop = Math.abs(delta) < sigma;
     if (delta > 0) {
-      minFontSize = fontsize * 0.9;
+      minFontSize = fontsize * 0.995;
     } else {
-      maxFontSize = fontsize * 1.1;
+      maxFontSize = fontsize * 1.005;
     }
   } while (!stop);
   const { actualBoundingBoxDescent: a, actualBoundingBoxAscent: b } = ctx.measureText(initials);
