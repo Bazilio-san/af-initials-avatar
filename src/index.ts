@@ -6,7 +6,7 @@ import stringToColor from 'string-to-color';
 import canvasModule, { Canvas, CanvasRenderingContext2D } from 'canvas';
 
 export interface IRegisterFontOptions {
-  pathToFont: string,
+  pathToFont?: string,
   family: string,
   weight?: string,
   style?: string
@@ -44,7 +44,7 @@ const DEFAULT = {
 };
 
 export const registerFont = (options: IRegisterFontOptions): void => {
-  const { pathToFont } = options;
+  const { pathToFont = '' } = options;
   if (!fs.existsSync(pathToFont)) {
     // eslint-disable-next-line no-console
     console.error(`Font not found: ${pathToFont}`);
@@ -143,7 +143,7 @@ export const generate = (name: string, options: IDrawOptions = {}): Buffer => {
   options.fontProportion = DEFAULT.FONT_PROPORTION(options.fontProportion);
   options.maxLetters = options.maxLetters || DEFAULT.MAX_LETTERS;
 
-  if (options.fontOptions?.pathToFont && options.fontOptions?.family) {
+  if (options.fontOptions?.pathToFont) {
     options.fontOptions.family = options.fontOptions?.family || DEFAULT.FONT_FAMILY;
     registerFont(options.fontOptions);
   }
