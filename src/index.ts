@@ -117,7 +117,6 @@ export const draw = (initials: string, options: IDrawOptions = {}): Canvas => {
   ctx.fillStyle = fontColor;
   text(ctx, initials, options);
 
-  fs.writeFileSync(path.resolve('output', `${Date.now()}_${initials}.png`), canvas.toBuffer());
   return canvas;
 };
 
