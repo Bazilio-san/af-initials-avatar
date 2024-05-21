@@ -12,15 +12,25 @@ let img = generate(name, {
 });
 fs.writeFileSync(path.resolve('output', `${Date.now()}_${getInitials(2)(name)}.png`), img);
 
-name = 'Any Benny Cony Doo';
-img = generate('Any Benny Cony Doo', {
+name = '?';
+img = generate(name, {
   width: 200,
-  palette: ['#25d095', '#ff7373', '#6c8eff'],
+  palette: ['#25d095'],
   maxLetters: 2,
   fontProportion: 0.8,
-  fontOptions: {
-    pathToFont: path.resolve(__dirname, '../src/fonts', 'HarmonyOS_Sans_Regular.ttf'),
-    family: 'HarmonyOS Sans',
-  },
+  fontOptions: { family: 'Arial' },
 });
-fs.writeFileSync(path.resolve('output', `${Date.now()}_${getInitials(2)(name)}.png`), img);
+fs.writeFileSync(path.resolve('output', `${Date.now()}_Q.png`), img);
+
+// name = 'Any Benny Cony Doo';
+// img = generate('Any Benny Cony Doo', {
+//   width: 200,
+//   palette: ['#25d095', '#ff7373', '#6c8eff'],
+//   maxLetters: 2,
+//   fontProportion: 0.8,
+//   fontOptions: {
+//     pathToFont: path.resolve(__dirname, '../src/fonts', 'HarmonyOS_Sans_Regular.ttf'),
+//     family: 'HarmonyOS Sans',
+//   },
+// });
+// fs.writeFileSync(path.resolve('output', `${Date.now()}_${getInitials(2)(name)}.png`), img);

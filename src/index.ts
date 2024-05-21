@@ -80,7 +80,7 @@ const text = (ctx: CanvasRenderingContext2D, initials: string, options: IDrawOpt
   const fontProportion = DEFAULT.FONT_PROPORTION(options.fontProportion);
 
   let minFontSize = width / 6;
-  let maxFontSize = width;
+  let maxFontSize = width * 3;
   let fontsize;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'hanging';
@@ -96,9 +96,9 @@ const text = (ctx: CanvasRenderingContext2D, initials: string, options: IDrawOpt
     const delta = needWidth - currentFontWidth;
     stop = Math.abs(delta) < sigma;
     if (delta > 0) {
-      minFontSize = fontsize * 0.995;
+      minFontSize = fontsize * 0.992;
     } else {
-      maxFontSize = fontsize * 1.005;
+      maxFontSize = fontsize * 1.008;
     }
     counter++;
   } while (!stop && counter < 100);
