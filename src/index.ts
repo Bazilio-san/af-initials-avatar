@@ -88,6 +88,7 @@ const text = (ctx: CanvasRenderingContext2D, initials: string, options: IDrawOpt
   const needWidth = width * fontProportion;
   const sigma = needWidth * 0.01;
   let stop = false;
+  let counter = 0;
   do {
     fontsize = (minFontSize + maxFontSize) / 2;
     ctx.font = `${fontsize}px ${family}`;
@@ -99,7 +100,8 @@ const text = (ctx: CanvasRenderingContext2D, initials: string, options: IDrawOpt
     } else {
       maxFontSize = fontsize * 1.005;
     }
-  } while (!stop);
+    counter++;
+  } while (!stop && counter < 100);
   const { actualBoundingBoxDescent: a, actualBoundingBoxAscent: b } = ctx.measureText(initials);
   const height = a - b;
   ctx.fillText(initials, width / 2, width / 2 - height / 2);
