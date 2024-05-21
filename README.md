@@ -1,5 +1,9 @@
 # Generating an avatar based on a name
 
+```shell
+npm i af-initials-avatar
+```
+
 ```typescript
 import * as fs from 'fs';
 import * as path from 'path';
