@@ -14,6 +14,7 @@
       "node",
       "jest"
     ],
+    "skipLibCheck": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

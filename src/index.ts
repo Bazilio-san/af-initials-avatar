@@ -1,15 +1,15 @@
-import * as path from 'path';
 import * as fs from 'fs';
 import tinycolor2, { ColorInput } from 'tinycolor2';
 import nearestColor from 'nearest-color';
 import stringToColor from 'string-to-color';
-import canvasModule, { Canvas, CanvasRenderingContext2D } from 'canvas';
+import canvasModule, { Canvas, SKRSContext2D, GlobalFonts } from '@napi-rs/canvas';
 
 export interface IRegisterFontOptions {
   pathToFont?: string,
   family: string,
-  weight?: string,
-  style?: string
+  weight?: 700 | 400 | 900 | 300 | 600 | 500 | 350 | 290 | 800 | 200 | 100,
+  width?: 'condensed' | 'extra-condensed' | 'normal' | 'semi-expanded' | 'expanded' | 'ultra-expanded' | 'semi-condensed' | 'ultra-condensed'
+  style?: 'normal' | 'italic'
 }
 
 export interface IDrawOptions {
@@ -49,7 +49,7 @@ export const registerFont = (options: IRegisterFontOptions): void => {
     // eslint-disable-next-line no-console
     console.error(`Font not found: ${pathToFont}`);
   } else {
-    canvasModule.registerFont(pathToFont, options);
+    GlobalFonts.registerFromPath(pathToFont, options.family);
   }
 };
 
@@ -65,13 +65,13 @@ export const getFontColor = (background: ColorInput): string => {
   return list.sort((a, b) => tinycolor2.readability(b, background) - tinycolor2.readability(a, background))[0] as string;
 };
 
-const circle = (ctx: CanvasRenderingContext2D, width: number = 100) => {
+const circle = (ctx: SKRSContext2D, width: number = 100) => {
   ctx.beginPath();
   ctx.arc(width / 2, width / 2, width / 2, 0, 2 * Math.PI);
   ctx.fill();
 };
 
-const text = (ctx: CanvasRenderingContext2D, initials: string, options: IDrawOptions) => {
+const text = (ctx: SKRSContext2D, initials: string, options: IDrawOptions) => {
   const {
     width = DEFAULT.WIDTH,
     fontOptions: { family = DEFAULT.FONT_FAMILY } = {},
@@ -151,5 +151,8 @@ export const generate = (name: string, options: IDrawOptions = {}): Buffer => {
 
   const initials = getInitials(options.maxLetters)(name);
   const canvas = draw(initials, options);
-  return canvas.toBuffer();
+
+  return canvas.toBuffer('image/png');
 };
+
+export { GlobalFonts } from '@napi-rs/canvas';
